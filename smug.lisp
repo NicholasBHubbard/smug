@@ -34,6 +34,11 @@
    #:.first
    #:.optional
    #:.read-line
+
+   #:.digit-char-p
+   #:.lower-case-p
+   #:.upper-case-p
+   
    #:.one-of
    #:.zero-or-more
    #:.one-or-more))
