@@ -33,7 +33,10 @@
    #:.not
    #:.first
    #:.optional
-   #:.read-line))
+   #:.read-line
+   #:.one-of
+   #:.zero-or-more
+   #:.one-or-more))
 (in-package :smug/smug) 
 
 (defmacro .let* (bindings &body body)
@@ -276,3 +279,14 @@
       (.identity nil)
       (.or (funcall parser (first list))
            (.one-of parser (rest list)))))
+
+(defun .zero-or-more (parser)
+  (.plus (.let* ((x parser)
+                 (xs (.zero-or-more parser)))
+           (.identity (cons x xs)))
+         (.identity ())))
+
+(defun .one-or-more (parser)
+  (.let* ((x parser)
+	  (y (.zero-or-more parser)))
+    (.identity (cons x y))))
